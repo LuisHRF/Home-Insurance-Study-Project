@@ -11,9 +11,9 @@ def defi_years_per_block(data_frame, year_range):
     return data_frame_cp
 
 
-def verify_and_switch_datatypes(data_clean, column_name, assigned_types):
-
-    column_name = data_clean[column_name]
+def verify_and_switch_datatypes(data_clean_years, column_name, assigned_types):
+    column_name = data_clean_years[column_name]
+    currently_type = data_clean_years[column_name].dtype
     assigned_types = {'Province': str,
                       'Assault': int,
                       'physical injuries':int,
@@ -26,23 +26,23 @@ def verify_and_switch_datatypes(data_clean, column_name, assigned_types):
                       'robberies_violence_intimidation':int,
                       'robberies_violence_publicways':int,
                       'robberies_violence_homes':int, 
-                      'robberies_violence_establishments':int
+                      'robberies_violence_establishments':int,
+                      'year':int
                       }
-    
-    # Verificar los tipos de datos actuales y convertir si es necesario
     for column_name, assigned_types in assigned_types.items():
-        
-        currently_type = data_clean[column_name].dtype
-        
         if currently_type != assigned_types:
             try:
-                data_clean[column_name] = data_clean[column_name].astype(assigned_types)
+                data_clean_years[column_name] = data_clean_years[column_name].astype(assigned_types)
                 print(f"Column '{column_name}' converted from {currently_type} a {assigned_types}.")
             except Exception as e:
                 print(f"It was no possible to switch the '{column_name}' type into {assigned_types}: {e}")
         else:
             print(f"Column '{column_name}' is currently right typed as ({currently_type}).")
     
-    return data_clean
+    return data_clean_years
 
-    "robberies_violence_intimidation","robberies_violence_publicways","robberies_violence_homes","robberies_violence_establishments"
+
+def convert_year_into_datetime(data_clean_years):
+    data_clean_years['Year'] = pd.to_datetime(data_clean_years['Year'].astype(str) + '-01-01')
+
+
