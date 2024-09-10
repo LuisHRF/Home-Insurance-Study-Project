@@ -17,7 +17,7 @@ def verify_and_switch_datatypes(data_clean_years, column_name, assigned_types):
     assigned_types = {'Province': str,
                       'Assault': int,
                       'physical injuries':int,
-                      'small robberies':int,
+                      'small_robberies':int,
                       'robberies_with_force':int,
                       'robberies_force_vehicles': int, 
                       'hard_robbvehicles':int, 
