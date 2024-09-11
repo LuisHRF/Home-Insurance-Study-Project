@@ -5,19 +5,11 @@ import streamlit as st
 import folium
 from streamlit_folium import folium_static
 
-
-def interpolate_color(value, min_value, max_value, color1, color2):
-    ratio = (value - min_value) / (max_value - min_value)
-    r = int(color1[0] * (1 - ratio) + color2[0] * ratio)
-    g = int(color1[1] * (1 - ratio) + color2[1] * ratio)
-    b = int(color1[2] * (1 - ratio) + color2[2] * ratio)
-    return f"#{r:02x}{g:02x}{b:02x}"
-
 def main():
 
-    data_pivot_table = pd.read_csv('data_pivot_table.csv')
+    data_pivot_map = pd.read_csv('data_pivot_map.csv')
 
-    data_melted = pd.melt(data_pivot_table, id_vars=['Province', 'Latitude', 'Longitude'], 
+    data_melted = pd.melt(data_pivot_map, id_vars=['Province', 'Latitude', 'Longitude'], 
                         var_name='Year', value_name='Total_crimes')
 
     data_melted['Year'] = data_melted['Year'].astype(int)

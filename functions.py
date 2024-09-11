@@ -10,23 +10,34 @@ def defi_years_per_block(data_frame, year_range):
 
     return data_frame_cp
 
-#def get_coordinates(province):
-    try:
-        location = geolocator.geocode(province + ', Spain')
-        if location:
-            return location.latitude, location.longitude
-        else:
-            return None, None
-    except:
-        return None, None
+def cleaning_columns_replace(data_frame):
+    data_frame.columns = data_frame.columns.str.lower().str.replace(" ", "_")
+    data_frame = data_frame.rename(columns={
+    "_": "Province"})
 
-
-#def add_coordinates(data_frame, column_name):
-    data_frame['Latitude'], data_frame['Longitude'] = zip(*data_frame['Province'].apply(get_coordinates))
     return data_frame
 
+def translate_columns(columns_titles):
 
-provincias_coordenadas = {
+    translations = {"1._contra_las_personas": " assault",
+                "1.2.-lesiones" :" injuries",
+                "5.1.-hurtos":"small_robberies",
+                "5.2.-robos_con_fuerza_en_las_cosas":"robberies_with_force",
+                "5.2.1.-robos_con_fuerza_en_las_cosas_en_el_interior_de_vehículos":"robberies_force_vehicles",
+                "5.2.2.-robos_con_fuerza_en_viviendas":"robberies_force_homes",
+                "5.2.3.-robos_con_fuerza_en_establecimientos":"robberies_force_stores",
+                "5.3.-robos_con_violencia_o_intimidación":"robberies_violence_intimidation",
+                "5.3.1.-robos_con_violencia_en_vía_pública":"robberies_violence_publicways",
+                "5.3.2.-robos_con_violencia_en_viviendas":"robberies_violence_homes",
+                "5.3.3.-robos_con_violencia_en_establecimientos":"robberies_violence_stores"
+                }
+
+    return [translations.get(col, col) for col in columns_titles]
+
+
+def add_coordinates_from_dict(data_frame):
+
+    provincias_coordenadas = {
     'Araba/Álava': {'Latitud': 42.84671, 'Longitud': -2.67245},
     'Albacete': {'Latitud': 38.99435, 'Longitud': -1.85854},
     'Alicante/Alacant': {'Latitud': 38.34517, 'Longitud': -0.48149},
@@ -79,9 +90,7 @@ provincias_coordenadas = {
     'Zaragoza': {'Latitud': 41.64882, 'Longitud': -0.88909},
     'Ceuta': {'Latitud': 35.88939, 'Longitud': -5.31979},
     'Melilla': {'Latitud': 35.29298, 'Longitud': -2.93871}
-}
-
-def add_coordinates_from_dict(data_frame, dict_coords):
+    }
       
     def get_lat_long(province):
         
@@ -105,6 +114,8 @@ def drop_specific_rows(data_frame, columns, values_to_drop):
 
     return data_frame_filtered
 
+
+# Functions focused to streamlit_app
 
 def interpolate_color(value, min_value, max_value, color1, color2):
     ratio = (value - min_value) / (max_value - min_value)
