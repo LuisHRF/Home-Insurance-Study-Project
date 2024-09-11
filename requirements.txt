@@ -2,4 +2,5 @@ folium==0.17.0
 numpy==1.26.0
 pandas==2.2.0
 streamlit==1.25.0
+streamlit-folium==0.22.0
 Pillow==9.0.0
