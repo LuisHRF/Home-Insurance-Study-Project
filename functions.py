@@ -98,3 +98,9 @@ def add_coordinates_from_dict(data_frame, dict_coords):
     data_frame['Latitude'], data_frame['Longitude'] = zip(*data_frame['Province'].apply(get_lat_long))
 
     return data_frame
+
+def drop_specific_rows(data_frame, columns, values_to_drop):
+    pattern = '|'.join([f'^{value}' for value in values_to_drop])
+    data_frame_filtered = data_frame[~data_frame[columns].str.contains(pattern)]
+
+    return data_frame_filtered
