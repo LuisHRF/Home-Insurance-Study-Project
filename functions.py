@@ -104,3 +104,11 @@ def drop_specific_rows(data_frame, columns, values_to_drop):
     data_frame_filtered = data_frame[~data_frame[columns].str.contains(pattern)]
 
     return data_frame_filtered
+
+
+def interpolate_color(value, min_value, max_value, color1, color2):
+    ratio = (value - min_value) / (max_value - min_value)
+    r = int(color1[0] * (1 - ratio) + color2[0] * ratio)
+    g = int(color1[1] * (1 - ratio) + color2[1] * ratio)
+    b = int(color1[2] * (1 - ratio) + color2[2] * ratio)
+    return f"#{r:02x}{g:02x}{b:02x}"
