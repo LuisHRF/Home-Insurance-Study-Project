@@ -11,8 +11,8 @@ Case study in which we investigate the hotspots of home burglaries, floods and e
 | Name             | LinkedIn Profile | Brief Description |
 |------------------|------------------|-------------------|
 | David Moreno     | In building      |  Economy Statistics & Data anlysis  |
-| Luis HRodríguez  | https://www.linkedin.com/in/luis-h-rodr%C3%ADguez-fuentes/ | Data Analyst |
-| Greta Galeana    | https://www.linkedin.com/in/gretagaleana? | Marketing business & Data Analyst |
+| Luis HRodríguez  | [\[Link\]](https://www.linkedin.com/in/luis-h-rodr%C3%ADguez-fuentes/) | Data Analyst |
+| Greta Galeana    | [\[Link\]](https://www.linkedin.com/in/gretagaleana?) | Marketing business & Data Analyst |
 
 ### Business Problem
 As a leading insurance company in the Spanish market, we aim to leverage big data to enhance our competitiveness and the accuracy of our policies, particularly those related to home, vehicle ans stores insurance. To achieve this, we have decided to integrate a comprehensive analysis of crime statistics provided by official sources, such as the Ministry of the Interior.
