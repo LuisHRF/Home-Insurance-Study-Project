@@ -4,8 +4,13 @@ import pandas as pd
 import streamlit as st
 import folium
 from streamlit_folium import folium_static
+from sklearn.linear_model import LinearRegression
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 def main():
+
+    # Map using total crimes per province between 2010 and 2023
 
     data_pivot_map = pd.read_csv('data_pivot_map.csv')
 
@@ -45,6 +50,40 @@ def main():
 
     st.title("Crimes per province and year map")
     folium_static(spain_map)
+
+    # Graphic for show the
+
+    st.title("Crime trend by province (2010-2023)")
+
+    data_clean = pd.read_csv('data_clean.csv')
+
+    data_2010 = data_clean[data_clean['year'] == 2010]
+    data_2023 = data_clean[data_clean['year'] == 2023]
+
+    merged_data = pd.merge(data_2010[['Province', 'Total_crimes']], 
+                       data_2023[['Province', 'Total_crimes']], 
+                       on='Province', 
+                       suffixes=('_2010', '_2023'))
+    
+    merged_data['Percentage Change'] = ((merged_data['Total_crimes_2023'] - merged_data['Total_crimes_2010']) / merged_data['Total_crimes_2010']) * 100
+
+    st.subheader("Crime percentage change by province (2010-2023)")
+    st.dataframe(merged_data[['Province', 'Percentage Change']].style.applymap(lambda x: 'color: green' if x < 0 else 'color: red', subset=['Percentage Change']))
+
+    st.subheader("Crime percentage change by province (Bar Chart)")
+
+    fig, ax = plt.subplots(figsize=(10, 12))
+
+    colors = ['green' if x < 0 else 'red' for x in merged_data['Percentage Change']]
+
+    ax.barh(merged_data['Province'], merged_data['Percentage Change'], color=colors)
+
+    ax.set_xlabel('Percentage Change (%)')
+    ax.set_ylabel('Province')
+    ax.set_title("Crime percentage change by province (2010-2023)")
+
+    st.pyplot(fig)
+
 
 if __name__ == "__main__":
     main()
