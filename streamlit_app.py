@@ -6,6 +6,7 @@ import folium
 from streamlit_folium import folium_static
 import matplotlib.pyplot as plt
 import seaborn as sns
+import altair as alt
 
 def main():
 
@@ -121,6 +122,54 @@ def main():
     ax.set_title(f"{crime_type} percentage change between 2010 and 2023")
 
     st.pyplot(fig)
+
+    # Data per capita
+
+    st.title("Crimes per capita by province (total)")
+
+    data_per_capita = pd.read_csv('data_per_capita.csv')
+
+    data_per_capita = data_per_capita.sort_values(by='crimes_per_capita', ascending=False)
+
+    fig, ax = plt.subplots(figsize=(16, 8))
+    ax.bar(data_per_capita['province'], data_per_capita['crimes_per_capita'], color='salmon', width=0.6)
+
+    ax.set_title('Crimes per Capita by Province')
+    ax.set_xlabel('Province')
+    ax.set_ylabel('Crimes per capita')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+
+    plt.xticks(rotation=90, fontsize=12)
+
+    plt.tight_layout()
+
+    st.pyplot(fig)
+
+    # Crime type by province
+
+    st.title("Crime type by province (total)")
+
+    data_crimes_type = pd.read_csv('data_crimes_type.csv')
+
+    data_melted = pd.melt(data_crimes_type, id_vars=['Province'], 
+                        var_name='Crime Type', value_name='Total_crimes')
+
+    chart = alt.Chart(data_melted).mark_bar().encode(
+        x=alt.X('Province:N', sort=None, title='Province', axis=alt.Axis(labelAngle=-90)),  
+        y=alt.Y('Total_crimes:Q', title='Total Crimes'),
+        color=alt.Color('Crime Type:N', title='Crime Type'),  
+        tooltip=['Province', 'Crime Type', 'Total_crimes']  
+    ).properties(
+        width=800, 
+        height=400, 
+        title='Total Crimes by Province and Crime Type'
+    ).configure_axis(
+        labelFontSize=10,  
+        labelColor='white'  
+    )
+   
+    st.altair_chart(chart, use_container_width=True)
 
 if __name__ == "__main__":
     main()
