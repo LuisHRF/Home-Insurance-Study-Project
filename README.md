@@ -1,12 +1,9 @@
-# Home-Insurance-Study-Project-
-
-This is a data analysis project within the Ironhack Data Analysis Bootcamp, carried out by Luis H. Rodriguez, Greta Galeana and David Moreno.
-
-The hypothesis of the project is that we work in the Data team of an insurance company in Spain that is looking to create new types of theft insurance and focus its activity on specific provinces. This is why the analysis has been aimed at contributing to this.
-
+# Study of analysis of crime data in Spain for insurance companies
+### This is a data analysis project within the Ironhack Data Analysis Bootcamp, carried out by Luis H. Rodriguez, Greta Galeana and David Moreno.
 <p align="center">
-<img src="tiburon.gif" alt="Tiburon con hambre">
+
 </p>
+
 ## Team Members
 
 | Name             | LinkedIn Profile | Brief Description |
@@ -17,6 +14,8 @@ The hypothesis of the project is that we work in the Data team of an insurance c
 
 ### Business Problem
 As a leading insurance company in the Spanish market, we aim to leverage big data to enhance our competitiveness and the accuracy of our policies, particularly those related to home, vehicle ans stores insurance. To achieve this, we have decided to integrate a comprehensive analysis of crime statistics provided by official sources, such as the Ministry of the Interior.
+
+The hypothesis of the project is that we work in the Data team of an insurance company in Spain that is looking to create new types of theft insurance and focus its activity on specific provinces. This is why the analysis has been aimed at contributing to this.
 
 ### Relevant links
 
