@@ -50,7 +50,7 @@ def main():
     st.title("Crimes per province and year map")
     folium_static(spain_map)
 
-    # Graphic for show the
+    # Graphic for the difference between 2010 and 2023
 
     st.title("Crime trend by province (2010-2023)")
 
@@ -83,6 +83,44 @@ def main():
 
     st.pyplot(fig)
 
+    # Graphic for show the violents crimes between 2010 and 2023
+
+    st.title("Violent crimes trend by province (2010-2023)")
+
+    data_rob_violence = pd.read_csv('data_rob_violence.csv')
+
+
+    data_2010_vi = data_rob_violence[data_rob_violence['year'] == 2010]
+    data_2023_vi = data_rob_violence[data_rob_violence['year'] == 2023]
+
+    crime_type = st.selectbox("Select type of violent crime", ['Violent assault', 'Robberies with violence in public places', 'Robberies with violence and intimidation'])
+
+    provinces_2010 = set(data_2010_vi['Province'].unique())
+    provinces_2023 = set(data_2023_vi['Province'].unique())
+    common_provinces = provinces_2010.intersection(provinces_2023)
+
+    growth_rate_vi = {}
+
+    for province in common_provinces:
+        crime_2010 = data_2010_vi[data_2010_vi['Province'] == province][crime_type].values[0]
+        crime_2023 = data_2023_vi[data_2023_vi['Province'] == province][crime_type].values[0]
+
+        if crime_2010 != 0: 
+            growth_rate_vi[province] = ((crime_2023 - crime_2010) / crime_2010) * 100
+
+    data_growth_vi = pd.DataFrame(list(growth_rate_vi.items()), columns=['Province', 'Percentage Change'])
+
+    data_growth_vi = data_growth_vi.sort_values(by='Percentage Change', ascending=True)
+
+    fig, ax = plt.subplots(figsize=(10, 8))
+    colors = ['red' if x > 0 else 'green' for x in data_growth_vi['Percentage Change']]
+    sns.barplot(y='Province', x='Percentage Change', data=data_growth_vi, palette=colors, ax=ax)
+
+    ax.set_xlabel('Percentage Change (%)')
+    ax.set_ylabel('Province')
+    ax.set_title(f"{crime_type} percentage change between 2010 and 2023")
+
+    st.pyplot(fig)
 
 if __name__ == "__main__":
     main()
