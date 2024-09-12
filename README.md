@@ -7,9 +7,6 @@ The hypothesis of the project is that we work in the Data team of an insurance c
 <p align="center">
 <img src="tiburon.gif" alt="Tiburon con hambre">
 </p>
-
-</p>
-
 ## Team Members
 
 | Name             | LinkedIn Profile | Brief Description |
