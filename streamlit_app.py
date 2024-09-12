@@ -4,7 +4,6 @@ import pandas as pd
 import streamlit as st
 import folium
 from streamlit_folium import folium_static
-from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
 import seaborn as sns
 
